@@ -6,26 +6,26 @@ You are an AI agent (Claude Code, Codex, Cursor, etc.). This guide is written fo
 
 If a human pasted this to you, follow the instructions below:
 
-> Install and configure `apihz-cli` using the guide at `docs/guide/installation.md`. First check `~/.apihz/config.json` if it exists, then ask me for my apihz.cn Developer ID and KEY (get them from apihz.cn User Center). Verify with `apihz-cli time now --type=20`.
+> Install and configure `@orangemust/apihz-cli` using the guide at `docs/guide/installation.md`. First check `~/.apihz/config.json` if it exists, then ask me for my apihz.cn Developer ID and KEY (get them from apihz.cn User Center). Verify with `apihz-cli time now --type=20`.
 
 ---
 
 ## What You're Installing
 
-`apihz-cli` is a CLI for [apihz.cn](https://www.apihz.cn/) (接口盒子), giving you terminal access to 479+ APIs — time, weather, IP geolocation, image search, QR codes, text translation, news, AI recognition, voice, SMS, unit conversion, and more. Free tier: 10 calls/min, unlimited daily.
+`@orangemust/apihz-cli` is a CLI for [apihz.cn](https://www.apihz.cn/) (接口盒子), giving you terminal access to 479+ APIs — time, weather, IP geolocation, image search, QR codes, text translation, news, AI recognition, voice, SMS, unit conversion, and more. Free tier: 10 calls/min, unlimited daily.
 
 ---
 
 ## Step 1: Install the Package
 
 ```bash
-npm install -g apihz-cli
+npm install -g @orangemust/apihz-cli
 ```
 
 Or run without installing (slower but zero setup):
 
 ```bash
-npx apihz-cli time now
+npx @orangemust/apihz-cli time now
 ```
 
 Verify:
@@ -43,7 +43,7 @@ export PATH="$(npm root -g)/../bin:$PATH"
 If you get a permission error on macOS/Linux:
 
 ```bash
-sudo npm install -g apihz-cli
+sudo npm install -g @orangemust/apihz-cli
 ```
 
 ---

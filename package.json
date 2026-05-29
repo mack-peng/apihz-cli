@@ -1,5 +1,8 @@
 {
-  "name": "apihz-cli",
+  "name": "@orangemust/apihz-cli",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.1.0",
   "description": "CLI for interacting with apihz.cn API marketplace (接口盒子)",
   "author": "mack-peng",

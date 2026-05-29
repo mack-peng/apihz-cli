@@ -2,7 +2,7 @@
 
 Command-line interface for [apihz.cn](https://www.apihz.cn/) — 接口盒子, 479+ APIs at your terminal.
 
-[![npm version](https://img.shields.io/npm/v/apihz-cli.svg)](https://www.npmjs.com/package/apihz-cli)
+[![npm version](https://img.shields.io/npm/v/@orangemust/apihz-cli.svg)](https://www.npmjs.com/package/@orangemust/apihz-cli)
 
 ---
 
@@ -34,10 +34,10 @@ curl -s https://raw.githubusercontent.com/mack-peng/apihz-cli/main/docs/guide/in
 ### Install
 
 ```bash
-npm install -g apihz-cli
+npm install -g @orangemust/apihz-cli
 
 # Or run without installing:
-# npx apihz-cli time now
+# npx @orangemust/apihz-cli time now
 ```
 
 ### 1. Get API Credentials
