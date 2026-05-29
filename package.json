@@ -1,0 +1,37 @@
+{
+  "name": "apihz-cli",
+  "version": "0.1.0",
+  "description": "CLI for interacting with apihz.cn API marketplace (接口盒子)",
+  "author": "mack-peng",
+  "license": "MIT",
+  "bin": {
+    "apihz-cli": "./bin/apihz-cli.js"
+  },
+  "files": [
+    "bin/",
+    "dist/"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "apihz",
+    "cli",
+    "api",
+    "接口盒子",
+    "weather",
+    "time",
+    "ip",
+    "translate"
+  ],
+  "dependencies": {
+    "commander": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.4.0"
+  }
+}

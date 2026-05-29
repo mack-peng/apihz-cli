@@ -1,0 +1,16 @@
+export { registerConfigCommands } from './config';
+export { registerTimeCommands } from './time';
+export { registerWeatherCommands } from './weather';
+export { registerIpLocationCommands } from './ip-location';
+export { registerImageCommands } from './image';
+export { registerTextCommands } from './text';
+export { registerNetworkCommands } from './network';
+export { registerNewsCommands } from './news';
+export { registerQrcodeCommands } from './qrcode';
+export { registerAiCommands } from './ai';
+export { registerVoiceCommands } from './voice';
+export { registerAuthCommands } from './auth';
+export { registerStorageCommands } from './storage';
+export { registerSmsCommands } from './sms';
+export { registerUnitCommands } from './unit';
+export { registerMiscCommands } from './misc';

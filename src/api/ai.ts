@@ -1,0 +1,120 @@
+import { ApihzClient } from '../utils/http';
+
+export interface FaceCompareResponse {
+  code: number;
+  msg: string;
+}
+
+export interface FaceAttrResponse {
+  code: number;
+  msg: string;
+  face: string;
+  Age: string;
+  Beauty: string;
+  Emotion: string;
+  Gender: string;
+}
+
+export interface OcrResponse {
+  code: number;
+  msg: string;
+}
+
+export interface IdCardResponse {
+  code: number;
+  msg: string;
+  name: string;
+  address: string;
+  birth: string;
+  nation: string;
+  sex: string;
+  idnum: string;
+  authority: string;
+  validdate: string;
+  advancedInfo: any;
+}
+
+export interface BankCardResponse {
+  code: number;
+  msg: string;
+  bankinfo: string;
+  cardname: string;
+  cardno: string;
+  cardtype: string;
+  validdate: string;
+}
+
+export interface LicenseResponse {
+  code: number;
+  msg: string;
+}
+
+export interface VehicleResponse {
+  code: number;
+  msg: string;
+}
+
+export interface ProductResponse {
+  code: number;
+  msg: string;
+}
+
+export class AiAPI {
+  constructor(private client: ApihzClient) {}
+
+  async faceCompare(type: number, imga: string, imgb: string): Promise<FaceCompareResponse> {
+    return this.client.get('/api/ai/facebd.php', { type, imga, imgb });
+  }
+
+  async faceLiveness(type: number, img: string): Promise<FaceCompareResponse> {
+    return this.client.get('/api/ai/faceht.php', { type, img });
+  }
+
+  async faceAttr(type: number, img: string, sxtype: number): Promise<FaceAttrResponse> {
+    return this.client.get('/api/ai/facesx.php', { type, img, sxtype });
+  }
+
+  async ocr(type: number, img: string, ljf?: string): Promise<OcrResponse> {
+    return this.client.get('/api/ai/shituwen.php', { type, img, ljf });
+  }
+
+  async idCard(type: number, img: string): Promise<IdCardResponse> {
+    return this.client.get('/api/ai/shenfenzheng.php', { type, img });
+  }
+
+  async bankCard(type: number, img: string): Promise<BankCardResponse> {
+    return this.client.get('/api/ai/yinhangka.php', { type, img });
+  }
+
+  async drivingLicense(type: number, img: string): Promise<LicenseResponse> {
+    return this.client.get('/api/ai/jiashizheng.php', { type, img });
+  }
+
+  async vehicleLicense(type: number, img: string, class_: number): Promise<LicenseResponse> {
+    return this.client.get('/api/ai/xingshizheng.php', { type, img, class: class_ });
+  }
+
+  async businessLicense(type: number, img: string): Promise<LicenseResponse> {
+    return this.client.get('/api/ai/yingyezhizhao.php', { type, img });
+  }
+
+  async receipt(type: number, img: string): Promise<LicenseResponse> {
+    return this.client.get('/api/ai/piaodan.php', { type, img });
+  }
+
+  async plate(type: number, img: string): Promise<LicenseResponse> {
+    return this.client.get('/api/ai/chepai.php', { type, img });
+  }
+
+  async vehicle(type: number, img: string): Promise<VehicleResponse> {
+    return this.client.get('/api/ai/cheliang.php', { type, img });
+  }
+
+  async product(type: number, img: string): Promise<ProductResponse> {
+    return this.client.get('/api/ai/shangpin.php', { type, img });
+  }
+
+  async tag(type: number, img: string): Promise<ProductResponse> {
+    return this.client.get('/api/ai/biaoqian.php', { type, img });
+  }
+}
