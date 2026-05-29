@@ -4,6 +4,14 @@
   "description": "CLI for interacting with apihz.cn API marketplace (接口盒子)",
   "author": "mack-peng",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mack-peng/apihz-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mack-peng/apihz-cli/issues"
+  },
+  "homepage": "https://github.com/mack-peng/apihz-cli#readme",
   "bin": {
     "apihz-cli": "./bin/apihz-cli.js"
   },
