@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "CLI for interacting with apihz.cn API marketplace (接口盒子)",
   "author": "mack-peng",
   "license": "MIT",
