@@ -97,6 +97,98 @@ export interface CoordsResponse {
   hctype: number;
 }
 
+export interface PlateNumberResponse {
+  code: number;
+  msg: string;
+  sheng: string;
+  shi: string;
+  idcode: string;
+}
+
+export interface PhoneSegmentResponse {
+  code: number;
+  msg: string;
+  sheng: string;
+  shi: string;
+  haoduan: string;
+  isp: string;
+  quhao: string;
+  youbian: string;
+  qhdm: string;
+}
+
+export interface ForeignCoordsResponse {
+  code: number;
+  msg: string;
+  country_eng: string;
+  level1_eng: string;
+  level2_eng: string;
+  level3_eng: string;
+  country_chn: string;
+  level1_chn: string;
+  level2_chn: string;
+  level3_chn: string;
+  iso_country_code: string;
+  lon: string;
+  lat: string;
+}
+
+export interface RandomCoordsResponse {
+  code: number;
+  msg: string;
+  lat: number;
+  lng: number;
+}
+
+export interface NearbySearchResponse {
+  code: number;
+  msg: string;
+  count: string;
+  allpage: number;
+  nowpage: number;
+  datas: Array<{
+    address: string;
+    distance: string;
+    provinceCode: string;
+    cityCode: string;
+    county: string;
+    typeName: string;
+    source: string;
+    lonlat: string;
+    typeCode: string;
+    countyCode: string;
+    province: string;
+    poiType: string;
+    name: string;
+    hotPointID: string;
+    stationData: any[];
+  }>;
+}
+
+export interface AreaCodeResponse {
+  code: number;
+  msg: string;
+  sheng: string;
+  shi: string;
+  quhao: string;
+  youbian: string;
+  qhdm: string;
+}
+
+export interface AddressToCoordsResponse {
+  code: number;
+  msg: string;
+  lng: string;
+  lat: string;
+  score: number;
+  level: string;
+}
+
+export interface MapImageResponse {
+  code: number;
+  msg: string;
+}
+
 export class IpLocationAPI {
   constructor(private client: ApihzClient) {}
 
@@ -130,5 +222,37 @@ export class IpLocationAPI {
 
   async coords(lon: string, lat: string): Promise<CoordsResponse> {
     return this.client.get('/api/other/jwjuhe2.php', { lon, lat });
+  }
+
+  async plateNumber(words: string): Promise<PlateNumberResponse> {
+    return this.client.get('/api/other/chepai.php', { words });
+  }
+
+  async phoneSegment(numbers: string): Promise<PhoneSegmentResponse> {
+    return this.client.get('/api/ip/haoduan.php', { numbers });
+  }
+
+  async foreignCoords(sheng: string, place: string): Promise<ForeignCoordsResponse> {
+    return this.client.get('/api/other/xzqhunzb.php', { sheng, place });
+  }
+
+  async randomCoords(city: string, code?: string, type?: number): Promise<RandomCoordsResponse> {
+    return this.client.get('/api/ip/sjzb.php', { city, code, type });
+  }
+
+  async nearbySearch(words: string, lon: string, lat: string, radius?: number, page?: number, type?: string, show?: number): Promise<NearbySearchResponse> {
+    return this.client.get('/api/other/diming.php', { words, lon, lat, radius, page, type, show });
+  }
+
+  async areaCode(words: string): Promise<AreaCodeResponse> {
+    return this.client.get('/api/ip/quhao.php', { words });
+  }
+
+  async addressToCoords(address: string): Promise<AddressToCoordsResponse> {
+    return this.client.get('/api/other/jwjuhe.php', { address });
+  }
+
+  async mapImage(lng: string, lat: string, zoom?: number, width?: number, height?: number): Promise<MapImageResponse> {
+    return this.client.get('/api/other/imgtiandi.php', { lng, lat, zoom, width, height });
   }
 }

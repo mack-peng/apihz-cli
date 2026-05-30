@@ -21,6 +21,14 @@ import {
   registerSmsCommands,
   registerUnitCommands,
   registerMiscCommands,
+  registerCalendarCommands,
+  registerFinanceCommands,
+  registerPwdCommands,
+  registerTransportCommands,
+  registerBilibiliCommands,
+  registerEarthquakeCommands,
+  registerAirportCommands,
+  registerHardwareCommands,
 } from './commands';
 
 export function decorateProgram(program: Command): void {
@@ -49,4 +57,12 @@ export function decorateProgram(program: Command): void {
   registerSmsCommands(program);
   registerUnitCommands(program);
   registerMiscCommands(program);
+  registerFinanceCommands(program);
+  registerPwdCommands(program);
+  registerTransportCommands(program);
+  registerBilibiliCommands(program);
+  registerCalendarCommands(program);
+  registerEarthquakeCommands(program);
+  registerAirportCommands(program);
+  registerHardwareCommands(program);
 }

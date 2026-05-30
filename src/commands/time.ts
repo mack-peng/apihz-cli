@@ -16,7 +16,7 @@ export function registerTimeCommands(program: Command): void {
       const api = new TimeAPI(client);
       try {
         const result = await api.now(Number(options.type));
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -33,7 +33,7 @@ export function registerTimeCommands(program: Command): void {
       const api = new TimeAPI(client);
       try {
         const result = await api.timestampTo(options.time);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -51,7 +51,7 @@ export function registerTimeCommands(program: Command): void {
       const api = new TimeAPI(client);
       try {
         const result = await api.timestampFrom(options.time, Number(options.type));
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -68,7 +68,7 @@ export function registerTimeCommands(program: Command): void {
       const api = new TimeAPI(client);
       try {
         const result = await api.getDay();
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -85,7 +85,7 @@ export function registerTimeCommands(program: Command): void {
       const api = new TimeAPI(client);
       try {
         const result = await api.countryTime(options.country);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);

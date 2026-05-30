@@ -172,4 +172,60 @@ export class MiscAPI {
   async redpack(zfb: string, name: string): Promise<RedpackResponse> {
     return this.client.get('/api/hongbao/zfb.php', { zfb, name });
   }
+
+  async uuid(): Promise<any> {
+    return this.client.get('/api/pwd/uuid.php');
+  }
+
+  async calculator(gongshi: string): Promise<any> {
+    return this.client.get('/api/jisuan/jisuanqi.php', { gongshi });
+  }
+
+  async timer(type: number, number?: number): Promise<any> {
+    return this.client.get('/api/jisuan/jishiqi.php', { type, number });
+  }
+
+  async counterManual(type: number, number: number, num?: number): Promise<any> {
+    return this.client.get('/api/jisuan/jishuqi2.php', { type, number, num });
+  }
+
+  async counterDaily(type: number, number?: number, num?: number): Promise<any> {
+    return this.client.get('/api/jisuan/jishuqi1.php', { type, number, num });
+  }
+
+  async baota(btapi: string, btkey: string, can?: string): Promise<any> {
+    return this.client.get('/api/baota/info.php', { btapi, btkey, can });
+  }
+
+  async mcserver(host: string, port?: number, xy?: number): Promise<any> {
+    return this.client.get('/api/fun/mcserver.php', { host, port, xy });
+  }
+
+  async tempMailInfo(mail: string, pwd?: string): Promise<any> {
+    return this.client.get('/api/mail/mailpwd.php', { mail, pwd });
+  }
+
+  async tempMailList(mail: string, pwd: string, page?: number): Promise<any> {
+    return this.client.get('/api/mail/mailgetlist.php', { mail, pwd, page });
+  }
+
+  async imapMail(mail: string, pwd: string, popimap: string, ip: string, port: number, ssl: string, page?: number, num?: number): Promise<any> {
+    return this.client.get('/api/mail/getmaillist.php', { mail, pwd, popimap, ip, port, ssl, page, num });
+  }
+
+  async announcement(num?: number): Promise<any> {
+    return this.client.get('/api/user/gonggaoq.php', { num });
+  }
+
+  async blankStat(): Promise<any> {
+    return this.client.get('/api/other/qp.php');
+  }
+
+  async secondsToTime(s: number, type?: number): Promise<any> {
+    return this.client.get('/api/time/stime.php', { s, type });
+  }
+
+  async timeDiff(time1: string, time2: string): Promise<any> {
+    return this.client.get('/api/time/zjgapi.php', { time1, time2 });
+  }
 }

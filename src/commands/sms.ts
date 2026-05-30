@@ -17,7 +17,7 @@ export function registerSmsCommands(program: Command): void {
       const api = new SmsAPI(client);
       try {
         const result = await api.send(options.phone, options.code);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -36,7 +36,7 @@ export function registerSmsCommands(program: Command): void {
       const api = new SmsAPI(client);
       try {
         const result = await api.sendVerify(Number(options.type), options.phone, options.code);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -58,7 +58,24 @@ export function registerSmsCommands(program: Command): void {
       const api = new SmsAPI(client);
       try {
         const result = await api.sendAliyun(options.phone, options.aliid, options.alikey, options.sign, options.template, options.code);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  sms
+    .command('query-status')
+    .description('Query SMS delivery status by query ID (qid)')
+    .requiredOption('--qid <id>', 'Query ID returned from sms send')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new SmsAPI(client);
+      try {
+        const result = await api.queryStatus(options.qid);
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);

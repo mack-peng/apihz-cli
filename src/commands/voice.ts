@@ -20,7 +20,7 @@ export function registerVoiceCommands(program: Command): void {
       const api = new VoiceAPI(client);
       try {
         const result = await api.toText(Number(options.type), options.data, options.format, options.lang, options.datalen ? Number(options.datalen) : undefined);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -53,7 +53,7 @@ export function registerVoiceCommands(program: Command): void {
           Number(options.lg),
           options.emotion
         );
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);

@@ -52,4 +52,20 @@ export class ImageAPI {
   async nasa(type: number, hd: number): Promise<ImageUrlResponse> {
     return this.client.get('/api/img/nasaapi.php', { type, hd });
   }
+
+  async food(words: string, page?: number): Promise<{ code: number; msg: string }> {
+    return this.client.get('/api/other/food.php', { words, page });
+  }
+
+  async compress(img: string, width?: number, height?: number, yasuo?: number, extension?: string): Promise<{ code: number; msg: string }> {
+    return this.client.get('/api/img/yasuo.php', { img, width, height, yasuo, extension });
+  }
+
+  async qqAvatar(num?: number): Promise<{ code: number; msg: string }> {
+    return this.client.get('/api/img/qqtx.php', { num });
+  }
+
+  async asciiArt(img: string, bjcolour?: string, xscolour?: string, width?: number, duibi?: number, type?: number): Promise<{ code: number; msg: string; url: string }> {
+    return this.client.get('/api/img/asciiimg.php', { img, bjcolour, xscolour, width, duibi, type });
+  }
 }

@@ -20,7 +20,7 @@ function registerUnitConvert(
       const api = new UnitAPI(client);
       try {
         const result = await method(api, Number(options.num), options.unit);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -38,4 +38,10 @@ export function registerUnitCommands(program: Command): void {
   registerUnitConvert(unit, 'current', 'Current conversion (A, kA, mA, µA)', (api, num, unit) => api.current(num, unit));
   registerUnitConvert(unit, 'voltage', 'Voltage conversion (V, kV, mV, µV)', (api, num, unit) => api.voltage(num, unit));
   registerUnitConvert(unit, 'resistance', 'Resistance conversion (µΩ, Ω, kΩ, MΩ)', (api, num, unit) => api.resistance(num, unit));
+  registerUnitConvert(unit, 'length', 'Length conversion (m, km, cm, mm, mi, yd, ft, in, nmi, etc.)', (api, num, unit) => api.length(num, unit));
+  registerUnitConvert(unit, 'temperature', 'Temperature conversion (C, F, K, Ra)', (api, num, unit) => api.temperature(num, unit));
+  registerUnitConvert(unit, 'storage', 'Storage conversion (bit, byte, kb, mb, gb, tb, pb, eb, zb, yb)', (api, num, unit) => api.storage(num, unit));
+  registerUnitConvert(unit, 'power', 'Power conversion (W, kW, MW, PS, hp)', (api, num, unit) => api.power(num, unit));
+  registerUnitConvert(unit, 'force', 'Force conversion (N, kN, kgf, dyn, lbf)', (api, num, unit) => api.force(num, unit));
+  registerUnitConvert(unit, 'illuminance', 'Illuminance conversion (lx, phot, fc)', (api, num, unit) => api.illuminance(num, unit));
 }

@@ -105,4 +105,36 @@ export class WeatherAPI {
   async humidity(): Promise<WeatherImageResponse> {
     return this.client.get('/api/tianqi/trsd.php');
   }
+
+  async tengxun7day(province: string, city: string, county?: string): Promise<any> {
+    return this.client.get('/api/tianqi/tengxun.php', { province, city, county });
+  }
+
+  async moji15IP(ip?: string): Promise<Weather15Response> {
+    return this.client.get('/api/tianqi/tqybmoji15ip.php', { ip });
+  }
+
+  async precipitationForecast(time: number): Promise<WeatherImageResponse> {
+    return this.client.get('/api/tianqi/jslyb.php', { time });
+  }
+
+  async alarmDetail(number: string): Promise<any> {
+    return this.client.get('/api/tianqi/yj.php', { number });
+  }
+
+  async foreignCity6day(city: string): Promise<any> {
+    return this.client.get('/api/tianqi/tqybun.php', { city });
+  }
+
+  async historyWeather(sheng: string, place: string, y: number, m: number, d?: number): Promise<any> {
+    return this.client.get('/api/tianqi/oldtqyb.php', { sheng, place, y, m, d });
+  }
+
+  async global1day(lon: string, lat: string): Promise<any> {
+    return this.client.get('/api/tianqi/tqybjw1.php', { lon, lat });
+  }
+
+  async global5day(lon: string, lat: string): Promise<any> {
+    return this.client.get('/api/tianqi/tqybjw5.php', { lon, lat });
+  }
 }

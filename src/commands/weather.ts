@@ -20,7 +20,7 @@ export function registerWeatherCommands(program: Command): void {
       const api = new WeatherAPI(client);
       try {
         const result = await api.byAddress(options.sheng, options.place, Number(options.day), Number(options.hourtype), Number(options.suntimetype));
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -40,7 +40,7 @@ export function registerWeatherCommands(program: Command): void {
       const api = new WeatherAPI(client);
       try {
         const result = await api.byIP(options.ip, Number(options.day), Number(options.hourtype), Number(options.suntimetype));
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -61,7 +61,7 @@ export function registerWeatherCommands(program: Command): void {
       const api = new WeatherAPI(client);
       try {
         const result = await api.byCoords(options.lon, options.lat, Number(options.day), Number(options.hourtype), Number(options.suntimetype));
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -79,7 +79,7 @@ export function registerWeatherCommands(program: Command): void {
       const api = new WeatherAPI(client);
       try {
         const result = await api.moji15(options.sheng, options.place);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -95,7 +95,7 @@ export function registerWeatherCommands(program: Command): void {
       const api = new WeatherAPI(client);
       try {
         const result = await api.cloud();
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -111,7 +111,7 @@ export function registerWeatherCommands(program: Command): void {
       const api = new WeatherAPI(client);
       try {
         const result = await api.precipitation();
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -127,7 +127,7 @@ export function registerWeatherCommands(program: Command): void {
       const api = new WeatherAPI(client);
       try {
         const result = await api.tempAnomaly();
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -143,7 +143,151 @@ export function registerWeatherCommands(program: Command): void {
       const api = new WeatherAPI(client);
       try {
         const result = await api.humidity();
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  weather
+    .command('tengxun7day')
+    .description('Get 7-day weather from Tencent Weather by address')
+    .requiredOption('--province <name>', 'Province name, e.g. 四川')
+    .requiredOption('--city <name>', 'City name, e.g. 绵阳')
+    .option('--county <name>', 'District/county name, e.g. 涪城')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new WeatherAPI(client);
+      try {
+        const result = await api.tengxun7day(options.province, options.city, options.county);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  weather
+    .command('moji15-ip')
+    .description('Get 15-day weather forecast (Moji Weather) by IP auto-location')
+    .option('--ip <addr>', 'IP address (auto-detect if omitted)')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new WeatherAPI(client);
+      try {
+        const result = await api.moji15IP(options.ip);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  weather
+    .command('precip-forecast')
+    .description('Get national precipitation forecast chart (1-7 days ahead)')
+    .option('--time <n>', 'Days ahead 1-7 (default 1)', String(1))
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new WeatherAPI(client);
+      try {
+        const result = await api.precipitationForecast(Number(options.time));
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  weather
+    .command('alarm-detail')
+    .description('Get weather alarm detailed content by alarm ID')
+    .requiredOption('--number <id>', 'Weather alarm ID from forecast response')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new WeatherAPI(client);
+      try {
+        const result = await api.alarmDetail(options.number);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  weather
+    .command('foreign-city')
+    .description('Get 6-day weather forecast for major foreign cities')
+    .requiredOption('--city <name>', 'City name, e.g. 东京')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new WeatherAPI(client);
+      try {
+        const result = await api.foreignCity6day(options.city);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  weather
+    .command('history')
+    .description('Query historical weather (2011-present)')
+    .requiredOption('--sheng <province>', 'Province name')
+    .requiredOption('--place <city>', 'City name')
+    .requiredOption('--y <year>', 'Year (2011-present)')
+    .requiredOption('--m <month>', 'Month 1-12')
+    .option('--d <day>', 'Day (omit for full month, VIP only)')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new WeatherAPI(client);
+      try {
+        const result = await api.historyWeather(options.sheng, options.place, Number(options.y), Number(options.m), options.d ? Number(options.d) : undefined);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  weather
+    .command('global-1day')
+    .description('Get 1-day global weather forecast by coordinates')
+    .requiredOption('--lon <deg>', 'Longitude')
+    .requiredOption('--lat <deg>', 'Latitude')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new WeatherAPI(client);
+      try {
+        const result = await api.global1day(options.lon, options.lat);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  weather
+    .command('global-5day')
+    .description('Get 5-day global weather forecast by coordinates')
+    .requiredOption('--lon <deg>', 'Longitude')
+    .requiredOption('--lat <deg>', 'Latitude')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new WeatherAPI(client);
+      try {
+        const result = await api.global5day(options.lon, options.lat);
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);

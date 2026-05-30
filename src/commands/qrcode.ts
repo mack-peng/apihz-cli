@@ -20,7 +20,7 @@ export function registerQrcodeCommands(program: Command): void {
       const api = new QrcodeAPI(client);
       try {
         const result = await api.create(options.text, Number(options.level), Number(options.size), options.bg, options.fg);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -39,7 +39,7 @@ export function registerQrcodeCommands(program: Command): void {
       const api = new QrcodeAPI(client);
       try {
         const result = await api.parse(Number(options.type), options.img, options.ext);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -57,7 +57,7 @@ export function registerQrcodeCommands(program: Command): void {
       const api = new QrcodeAPI(client);
       try {
         const result = await api.parsePlus(Number(options.type), options.img);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);

@@ -164,14 +164,49 @@ apihz-cli geo reverse --lon=116.30 --lat=40.05
 apihz-cli unit speed --num=100 --unit=米秒
 apihz-cli unit time --num=3600 --unit=秒
 apihz-cli unit voltage --num=220 --unit=伏特
+apihz-cli unit length --num=1000 --unit=米
 
 apihz-cli misc jiakao --type=1
 apihz-cli misc lottery
 apihz-cli misc chem-eq --reactants=H2,O2 --products=H2O
 apihz-cli misc element --name=H
+apihz-cli misc uuid
 
 apihz-cli storage text --type=2 --numid=1
 apihz-cli storage data-query --name=* --page=1 --limit=10
+
+### New: Encryption
+apihz-cli pwd md5 --words="hello"
+apihz-cli pwd base64-encode --words="hello"
+apihz-cli pwd url-encode --words="你好世界"
+apihz-cli pwd hex-encode --words="hello"
+
+### New: Transport
+apihz-cli transport train-remain --add=绵阳 --end=成都 --y=2025 --m=6 --d=10
+apihz-cli transport express --number=<tracking_number>
+apihz-cli transport bus-route --starlon=121.42 --starlat=31.20 --endlon=121.31 --endlat=31.19
+
+### New: Bilibili & Entertainment
+apihz-cli bilibili ranking
+apihz-cli bilibili maoyan-movie
+apihz-cli bilibili random-video
+
+### New: Calendar & Fortune
+apihz-cli calendar today-detail
+apihz-cli calendar zhuge --words="问前程"
+apihz-cli calendar yuelao
+
+### New: Finance
+apihz-cli finance exchange-rate --from=USD --to=CNY --money=100
+apihz-cli finance gold-price
+apihz-cli finance lottery-daletou
+
+### New: Earthquake
+apihz-cli earthquake latest
+
+### New: Airport & Hardware
+apihz-cli airport search --word=北京
+apihz-cli hardware desktop-gpu
 ```
 
 ### Paid APIs (requires sufficent balance)

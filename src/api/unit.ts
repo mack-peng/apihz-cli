@@ -41,4 +41,28 @@ export class UnitAPI {
   async resistance(num: number, unit: string): Promise<UnitConvertResponse> {
     return this.client.get('/api/danwei/dianzu.php', { num, unit });
   }
+
+  async length(num: number, unit: string): Promise<UnitConvertResponse> {
+    return this.client.get('/api/danwei/changdu.php', { num, unit });
+  }
+
+  async temperature(num: number, unit: string): Promise<UnitConvertResponse> {
+    return this.client.get('/api/danwei/wendu.php', { num, unit });
+  }
+
+  async storage(num: number, unit: string): Promise<UnitConvertResponse> {
+    return this.client.get('/api/danwei/cunchu.php', { num, unit });
+  }
+
+  async power(num: number, unit: string): Promise<UnitConvertResponse> {
+    return this.client.get('/api/danwei/gonglv.php', { num, unit });
+  }
+
+  async force(num: number, unit: string): Promise<UnitConvertResponse> {
+    return this.client.get('/api/danwei/li.php', { num, unit });
+  }
+
+  async illuminance(num: number, unit: string): Promise<UnitConvertResponse> {
+    return this.client.get('/api/danwei/guangzhaodu.php', { num, unit });
+  }
 }

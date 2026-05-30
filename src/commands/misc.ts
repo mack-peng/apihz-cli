@@ -16,7 +16,7 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.jiakao(Number(options.type));
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -36,7 +36,7 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.qq(options.qq, options.ckqq, options.skey, options.pskey);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -53,7 +53,7 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.shuangseqiu(options.qh);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -73,7 +73,7 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.lanzou(options.url, options.pwd, Number(options.type), Number(options.outtype));
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -90,7 +90,7 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.phoneStatus(options.number);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -107,7 +107,7 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.phoneOnline(options.number);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -124,7 +124,7 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.bankInfo(options.number);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -142,7 +142,7 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.chemEq(options.reactants, options.products);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -159,7 +159,7 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.element(options.name);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -190,7 +190,7 @@ export function registerMiscCommands(program: Command): void {
           options.code, Number(options.port), options.ip, options.secure,
           options.idmail, options.pwd, options.usermail
         );
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -209,7 +209,7 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.proxy(Number(options.type), options.ip, options.direct ? 1 : undefined);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -227,7 +227,264 @@ export function registerMiscCommands(program: Command): void {
       const api = new MiscAPI(client);
       try {
         const result = await api.redpack(options.zfb, options.name);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('uuid')
+    .description('Generate a random UUID')
+    .action(async (_options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.uuid();
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('calc')
+    .description('Calculate a mathematical expression (supports scientific notation)')
+    .requiredOption('--formula <expr>', 'Formula, no spaces, e.g. (5+6)*10-(8+2)*10')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.calculator(options.formula);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('timer')
+    .description('Stopwatch: start or query timers (up to 10)')
+    .requiredOption('--type <n>', '1=start timing, 2=query timing')
+    .option('--number <n>', 'Timer number 1-10 (required for --type 1, omit for --type 2 to query all)')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.timer(Number(options.type), options.number ? Number(options.number) : undefined);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('counter-manual')
+    .description('Manual-reset counter: increment/query/reset (up to 10 counters)')
+    .requiredOption('--type <n>', '1=increment, 2=query, 3=reset to zero')
+    .requiredOption('--number <n>', 'Counter number 1-10 (omit for --type 2 to query all)')
+    .option('--num <n>', 'Increment value (integer, default +1)')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.counterManual(Number(options.type), Number(options.number), options.num ? Number(options.num) : undefined);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('counter-daily')
+    .description('Daily-auto-reset counter: increment/query (resets at midnight)')
+    .requiredOption('--type <n>', '1=increment, 2=query')
+    .option('--number <n>', 'Counter number 1-10 (required for --type 1, omit for --type 2 to query all)')
+    .option('--num <n>', 'Increment value (integer, default +1)')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.counterDaily(Number(options.type), options.number ? Number(options.number) : undefined, options.num ? Number(options.num) : undefined);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('baota')
+    .description('Operate BT Panel (BaoTa) via API - PAID')
+    .requiredOption('--btapi <url>', 'BT Panel API URL, e.g. http://127.0.0.1:8888/system?action=GetNetWork')
+    .requiredOption('--btkey <key>', 'BT Panel API access key')
+    .option('--can <params>', 'Extra request params, replace & with <>')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.baota(options.btapi, options.btkey, options.can);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('mcserver')
+    .description('Query Minecraft server info')
+    .requiredOption('--host <addr>', 'Server address (IP or domain)')
+    .option('--port <n>', 'Server port (default 25565)', String(25565))
+    .option('--xy <n>', '0=auto 1=modern 2=legacy 3=UDP 4=compat (default 0)', String(0))
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.mcserver(options.host, Number(options.port), Number(options.xy));
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('temp-mail-info')
+    .description('Query/modify temp email info (password, expiry)')
+    .requiredOption('--mail <email>', 'Temp email address')
+    .option('--pwd <password>', 'New password (8-20 chars), omit to query only')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.tempMailInfo(options.mail, options.pwd);
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('temp-mail-list')
+    .description('Get inbox content for a temp email')
+    .requiredOption('--mail <email>', 'Temp email address')
+    .requiredOption('--pwd <password>', 'Email password')
+    .option('--page <n>', 'Page number (default 1)', String(1))
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.tempMailList(options.mail, options.pwd, Number(options.page));
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('imap-mail')
+    .description('Fetch emails via IMAP/POP3 (QQ, NetEase, etc.)')
+    .requiredOption('--mail <email>', 'Email address')
+    .requiredOption('--pwd <password>', 'Password/auth code')
+    .requiredOption('--proto <imap|pop3>', 'Protocol: imap or pop3')
+    .requiredOption('--ip <addr>', 'Server address, e.g. pop.qq.com')
+    .requiredOption('--port <n>', 'Server port')
+    .requiredOption('--ssl <ssl|tls>', 'Encryption: ssl or tls')
+    .option('--page <n>', 'Page number (default 1)', String(1))
+    .option('--num <n>', 'Emails per page (default 5, max 5)', String(5))
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.imapMail(options.mail, options.pwd, options.proto, options.ip, Number(options.port), options.ssl, Number(options.page), Number(options.num));
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('announcement')
+    .description('Query published announcements')
+    .option('--num <n>', 'Number of latest announcements (default 1, max 10)', String(1))
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.announcement(Number(options.num));
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('blank-stat')
+    .description('Blank stat endpoint (no data returned, for analytics only)')
+    .action(async (_options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.blankStat();
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('sec-to-time')
+    .description('Convert seconds to days/hours/minutes/seconds')
+    .requiredOption('--sec <n>', 'Seconds to convert')
+    .option('--type <n>', 'Format: 1=Y/D/H/M/S 2=D/H/M/S 3=H/M/S 4=M/S (default 1)', String(1))
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.secondsToTime(Number(options.sec), Number(options.type));
+        console.log(formatOutput(result, !opts.raw));
+      } catch (err: any) {
+        console.error(err.message);
+        process.exit(1);
+      }
+    });
+
+  misc
+    .command('time-diff')
+    .description('Calculate formatted time difference between two timestamps')
+    .requiredOption('--time1 <ts>', 'First timestamp (Unix)')
+    .requiredOption('--time2 <ts>', 'Second timestamp (Unix)')
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
+      const client = new ApihzClient({ id: opts.id, key: opts.key, vip: opts.vip });
+      const api = new MiscAPI(client);
+      try {
+        const result = await api.timeDiff(options.time1, options.time2);
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);

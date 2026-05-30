@@ -18,7 +18,7 @@ export function registerAuthCommands(program: Command): void {
       const api = new AuthAPI(client);
       try {
         const result = await api.bank3(options.name, options.number, options.idcard);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -36,7 +36,7 @@ export function registerAuthCommands(program: Command): void {
       const api = new AuthAPI(client);
       try {
         const result = await api.bank2(options.name, options.number);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -55,7 +55,7 @@ export function registerAuthCommands(program: Command): void {
       const api = new AuthAPI(client);
       try {
         const result = await api.alipay(options.name, options.number, options.url);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);
@@ -72,7 +72,7 @@ export function registerAuthCommands(program: Command): void {
       const api = new AuthAPI(client);
       try {
         const result = await api.alipayCheck(options.cxid);
-        console.log(formatOutput(result));
+        console.log(formatOutput(result, !opts.raw));
       } catch (err: any) {
         console.error(err.message);
         process.exit(1);

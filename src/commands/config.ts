@@ -16,8 +16,8 @@ export function registerConfigCommands(program: Command): void {
     .option('--id <id>', 'Developer ID')
     .option('--key <key>', 'Developer KEY')
     .option('--vip', 'Use VIP line by default')
-    .action(function (this: Command) {
-      const opts = this.optsWithGlobals();
+    .action(async (options, command) => {
+      const opts = command.optsWithGlobals();
       const cm = new ConfigManager();
       const updates: Record<string, any> = {};
       if (opts.id) updates.id = opts.id;
